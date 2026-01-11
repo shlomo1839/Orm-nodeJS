@@ -1,0 +1,49 @@
+const { Sequelize, DataTypes } = require('sequelize');
+
+const sequelize = new Sequelize('courses_db', 'appuser', 'apppass', {
+    host: '127.0.0.1',
+    dialect: 'mysql',
+    logging: console.log,
+});
+
+const Course = sequelize.define('Course', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    hours: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    is_active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
+}, {
+    tableName: 'courses',
+    timestamps: false
+});
+
+async function createDbAndTables() {
+    try {
+        await sequelize.authenticate();
+        await sequelize.sync();
+        console.log("Database and tables are ready.");
+    } catch (error) {
+        console.error("Unable to connect to the database:", error);
+    }
+}
+
+async function addCourse(name, hours, is_active = true) {
+    try {
+        const newCourse = await Course.create({
+            name: name,
+            hours: hours,
+            is_active: is_active
+        });
+        console.log(`Added course

@@ -1,9 +1,0 @@
-import { Sequelize, DataTypes } from "sequelize";
-
-export const sequelize = new sequelize(courses_db, appuser, apppass,
-    {
-    host: '127.0.0.1',
-    port: 3306
-    
-})
-
