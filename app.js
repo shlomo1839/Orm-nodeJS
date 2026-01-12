@@ -27,7 +27,7 @@ const Course = sequelize.define('Course', {
         defaultValue: true
     }
 }, {
-    tableName: 'courses',    // 
+    tableName: 'courses',    // what is the name of all tabla
     timestamps: false        // make shure only thoes columns only created
 });
 
